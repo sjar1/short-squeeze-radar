@@ -16,6 +16,7 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install -r requirements.txt
+      - run: python -m unittest -v test_trading_radar.py
       - run: python trading_radar.py --run
       - name: Preserve historical data
         run: |
