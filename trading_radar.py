@@ -66,21 +66,34 @@ def evaluate(ticker, history, short_interest=None, days_to_cover=None, catalyst=
 
 def run():
     OUT.mkdir(parents=True,exist_ok=True)
-    results=[]; errors=[]
+    results=[]; errors=[]; squeeze_watch=[]
     for ticker in [t.strip().upper() for t in UNIVERSE if t.strip()]:
         try:
             df=yf.download(ticker,period="1y",auto_adjust=True,progress=False)
             if isinstance(df.columns,pd.MultiIndex): df.columns=df.columns.get_level_values(0)
             if df.empty: continue
             item=evaluate(ticker,df)
-            if item: results.append(item)
+            if item:
+                results.append(item)
+                # Informational squeeze watch only: Yahoo fields lack a reliable publication timestamp.
+                try:
+                    info=yf.Ticker(ticker).info
+                    short_pct=info.get("shortPercentOfFloat")
+                    ratio=info.get("shortRatio")
+                    if isinstance(short_pct,(int,float)) and isinstance(ratio,(int,float)):
+                        squeeze_watch.append({"ticker":ticker,"short_percent_float":round(short_pct*100,2),
+                            "days_to_cover":round(ratio,2),"relative_volume":item["rvol"],
+                            "watch":short_pct>=.15 and ratio>=3,
+                            "data_status":"Unverified publication timestamp; informational only"})
+                except Exception as exc:
+                    errors.append(f"{ticker} squeeze metadata: {exc}")
         except Exception as exc:
             errors.append(f"{ticker}: {exc}")
             print(f"{ticker}: {exc}")
     results.sort(key=lambda x:x["score"],reverse=True)
     if not results and errors:
         raise RuntimeError("All ticker downloads failed; preserving last good dashboard data: " + "; ".join(errors[:3]))
-    payload={"generated_at":datetime.now(timezone.utc).isoformat(),"data_policy":"Unverified squeeze/catalyst metrics are never inferred. Scores are research heuristics, not win probabilities.","signals":results,"errors":errors}
+    payload={"generated_at":datetime.now(timezone.utc).isoformat(),"data_policy":"Unverified squeeze/catalyst metrics are never inferred. Scores are research heuristics, not win probabilities.","signals":results,"squeeze_watch":sorted(squeeze_watch,key=lambda x:x["short_percent_float"],reverse=True),"errors":errors}
     (OUT/"signals.json").write_text(json.dumps(payload,indent=2))
     history=OUT/"history.json"
     old=json.loads(history.read_text()) if history.exists() else []
