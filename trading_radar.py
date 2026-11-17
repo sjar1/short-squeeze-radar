@@ -40,14 +40,14 @@ def evaluate(ticker, history, short_interest=None, days_to_cover=None, catalyst=
              and short_interest is not None and short_interest>=.15
              and days_to_cover is not None and days_to_cover>=3)
     reversal=(price>x.ema20 and price>x.high10 and x.rvol>=1.5 and 45<=x.rsi<=65 and catalyst)
-    modes=[("momentum",momentum,2),("squeeze",squeeze,2.5),("reversal",reversal,1.75)]
+    modes=[("squeeze",squeeze,2.5),("reversal",reversal,1.75),("momentum",momentum,2)]
     selected=next(((name,mult) for name,ok,mult in modes if ok),None)
     # Transparent ranking heuristic; not a probability.
     volume_pts=0 if x.rvol<1.5 else 8 if x.rvol<2 else 14 if x.rvol<3 else 20
     raw={"trend":25 if trend else 8 if price>x.ema20 else 0,
          "volume":volume_pts,"short":20 if squeeze else 10 if short_interest is not None and short_interest>=.15 else 0,
          "breakout":15 if price>x.high20 else 10 if price>x.high10 else 0,
-         "catalyst":15 if catalyst else 0,"market":0}
+         "catalyst":15 if catalyst else 0,"market":5 if trend else 0}
     if selected and selected[0]!="squeeze":
         score=round(100*(sum(raw.values())-raw["short"])/80)
     else: score=sum(raw.values())
@@ -66,7 +66,7 @@ def evaluate(ticker, history, short_interest=None, days_to_cover=None, catalyst=
 
 def run():
     OUT.mkdir(parents=True,exist_ok=True)
-    results=[]
+    results=[]; errors=[]
     for ticker in [t.strip().upper() for t in UNIVERSE if t.strip()]:
         try:
             df=yf.download(ticker,period="1y",auto_adjust=True,progress=False)
@@ -74,9 +74,13 @@ def run():
             if df.empty: continue
             item=evaluate(ticker,df)
             if item: results.append(item)
-        except Exception as exc: print(f"{ticker}: {exc}")
+        except Exception as exc:
+            errors.append(f"{ticker}: {exc}")
+            print(f"{ticker}: {exc}")
     results.sort(key=lambda x:x["score"],reverse=True)
-    payload={"generated_at":datetime.now(timezone.utc).isoformat(),"data_policy":"Unverified squeeze/catalyst metrics are never inferred. Scores are research heuristics, not win probabilities.","signals":results}
+    if not results and errors:
+        raise RuntimeError("All ticker downloads failed; preserving last good dashboard data: " + "; ".join(errors[:3]))
+    payload={"generated_at":datetime.now(timezone.utc).isoformat(),"data_policy":"Unverified squeeze/catalyst metrics are never inferred. Scores are research heuristics, not win probabilities.","signals":results,"errors":errors}
     (OUT/"signals.json").write_text(json.dumps(payload,indent=2))
     history=OUT/"history.json"
     old=json.loads(history.read_text()) if history.exists() else []
