@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-11-17T15:57:09.260837+00:00",
+  "generated_at": "2026-11-18T03:49:06.954296+00:00",
   "data_policy": "Unverified squeeze/catalyst metrics are never inferred. Scores are research heuristics, not win probabilities.",
   "signals": [
     {
       "ticker": "AMC",
       "date": "2026-11-17",
-      "price": 3.16,
-      "rvol": 0.17,
-      "rsi": 50.8,
+      "price": 3.18,
+      "rvol": 0.81,
+      "rsi": 51.5,
       "score": 0,
       "strategy": "watch",
       "qualified": false,
@@ -17,9 +17,9 @@
     {
       "ticker": "SOFI",
       "date": "2026-11-17",
-      "price": 14.23,
-      "rvol": 0.25,
-      "rsi": 36.6,
+      "price": 14.28,
+      "rvol": 0.91,
+      "rsi": 36.9,
       "score": 0,
       "strategy": "watch",
       "qualified": false,
@@ -29,9 +29,9 @@
     {
       "ticker": "IONQ",
       "date": "2026-11-17",
-      "price": 24.42,
-      "rvol": 0.53,
-      "rsi": 34.1,
+      "price": 24.84,
+      "rvol": 1.23,
+      "rsi": 34.7,
       "score": 0,
       "strategy": "watch",
       "qualified": false,
@@ -41,9 +41,9 @@
     {
       "ticker": "UPST",
       "date": "2026-11-17",
-      "price": 18.33,
-      "rvol": 0.19,
-      "rsi": 31.5,
+      "price": 18.13,
+      "rvol": 0.74,
+      "rsi": 30.9,
       "score": 0,
       "strategy": "watch",
       "qualified": false,
@@ -53,9 +53,9 @@
     {
       "ticker": "LCID",
       "date": "2026-11-17",
-      "price": 2.74,
-      "rvol": 0.18,
-      "rsi": 37.0,
+      "price": 2.91,
+      "rvol": 0.87,
+      "rsi": 40.4,
       "score": 0,
       "strategy": "watch",
       "qualified": false,
@@ -65,9 +65,9 @@
     {
       "ticker": "RIVN",
       "date": "2026-11-17",
-      "price": 11.93,
-      "rvol": 0.27,
-      "rsi": 38.3,
+      "price": 11.88,
+      "rvol": 0.73,
+      "rsi": 37.9,
       "score": 0,
       "strategy": "watch",
       "qualified": false,
@@ -80,7 +80,7 @@
       "ticker": "LCID",
       "short_percent_float": 60.44,
       "days_to_cover": 9.45,
-      "relative_volume": 0.18,
+      "relative_volume": 0.87,
       "watch": true,
       "data_status": "Unverified publication timestamp; informational only"
     },
@@ -88,7 +88,7 @@
       "ticker": "UPST",
       "short_percent_float": 30.58,
       "days_to_cover": 6.94,
-      "relative_volume": 0.19,
+      "relative_volume": 0.74,
       "watch": true,
       "data_status": "Unverified publication timestamp; informational only"
     },
@@ -96,7 +96,7 @@
       "ticker": "SOFI",
       "short_percent_float": 17.47,
       "days_to_cover": 4.19,
-      "relative_volume": 0.25,
+      "relative_volume": 0.91,
       "watch": true,
       "data_status": "Unverified publication timestamp; informational only"
     },
@@ -104,7 +104,7 @@
       "ticker": "RIVN",
       "short_percent_float": 15.14,
       "days_to_cover": 6.21,
-      "relative_volume": 0.27,
+      "relative_volume": 0.73,
       "watch": true,
       "data_status": "Unverified publication timestamp; informational only"
     },
@@ -112,7 +112,7 @@
       "ticker": "IONQ",
       "short_percent_float": 11.76,
       "days_to_cover": 2.28,
-      "relative_volume": 0.53,
+      "relative_volume": 1.23,
       "watch": false,
       "data_status": "Unverified publication timestamp; informational only"
     },
@@ -120,7 +120,7 @@
       "ticker": "AMC",
       "short_percent_float": 4.58,
       "days_to_cover": 1.92,
-      "relative_volume": 0.17,
+      "relative_volume": 0.81,
       "watch": false,
       "data_status": "Unverified publication timestamp; informational only"
     }
