@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T04:18:38.312260+00:00",
+  "generated_at": "2026-11-27T04:28:13.996784+00:00",
   "data_policy": "Unverified squeeze/catalyst metrics are never inferred. Scores are research heuristics, not win probabilities.",
   "signals": [
     {
@@ -18,7 +18,7 @@
       "ticker": "SOFI",
       "date": "2026-11-25",
       "price": 13.07,
-      "rvol": 1.04,
+      "rvol": 1.05,
       "rsi": 34.9,
       "score": 0,
       "strategy": "watch",
@@ -30,7 +30,7 @@
       "ticker": "IONQ",
       "date": "2026-11-25",
       "price": 23.54,
-      "rvol": 0.95,
+      "rvol": 0.96,
       "rsi": 38.3,
       "score": 0,
       "strategy": "watch",
@@ -66,7 +66,7 @@
       "ticker": "RIVN",
       "date": "2026-11-25",
       "price": 11.71,
-      "rvol": 0.86,
+      "rvol": 0.87,
       "rsi": 43.4,
       "score": 0,
       "strategy": "watch",
@@ -96,7 +96,7 @@
       "ticker": "SOFI",
       "short_percent_float": 15.69,
       "days_to_cover": 3.54,
-      "relative_volume": 1.04,
+      "relative_volume": 1.05,
       "watch": true,
       "data_status": "Unverified publication timestamp; informational only"
     },
@@ -104,7 +104,7 @@
       "ticker": "RIVN",
       "short_percent_float": 15.52,
       "days_to_cover": 5.94,
-      "relative_volume": 0.86,
+      "relative_volume": 0.87,
       "watch": true,
       "data_status": "Unverified publication timestamp; informational only"
     },
@@ -112,7 +112,7 @@
       "ticker": "IONQ",
       "short_percent_float": 11.45,
       "days_to_cover": 2.21,
-      "relative_volume": 0.95,
+      "relative_volume": 0.96,
       "watch": false,
       "data_status": "Unverified publication timestamp; informational only"
     },
